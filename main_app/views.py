@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
 
 from .models import Word
 
@@ -21,4 +22,9 @@ def words_detail(request, word_id):
     return render (request, 'words/detail.html', {
         'word': word
     })
+
+class WordCreate(CreateView):
+    model = Word
+    fields = '__all__'
+    success_url = '/words'
     
