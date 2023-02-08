@@ -1,13 +1,11 @@
 {% extends 'base.html' %} {% block content %}
 <h1>All Words</h1>
-
-{% for word in words %}
-<div class="card">
-  <h2>{{ word.word }}</h2>
-  <p>Part of Speech: <span>{{ word.part_of_speech }}</span></p>
-  <p>Definition: <span>{{ word.definition }}</span></p>
-  <p>
-    Example: <span><i>{{ word.sentence }}</i></span>
-  </p>
+<div class="container">
+  {% for word in words %}
+  <div class="card">
+    <h2>{{ word.word }}</h2>
+    <p>{{ word.definition }}</p>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %} {% endblock %}
+{% endblock %}
