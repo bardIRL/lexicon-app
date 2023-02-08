@@ -1,7 +1,8 @@
 {% extends 'base.html' %} {% block content %}
 
-<h1>{{ word.word }}</h1>
 <p><b>Definition:</b> <span>{{ word.definition }}</span></p>
 <p><b>Example:</b> <span>{{ word.sentence }}</span></p>
+
+<a href="{% url 'words_update' word.id %}">Edit</a>
 
 {% endblock %}

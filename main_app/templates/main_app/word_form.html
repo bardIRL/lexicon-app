@@ -1,4 +1,8 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %} {% if object %}
+<h1>Edit <span>{{ object.word }}</span></h1>
+{% else %}
+<h1>Add a Word</h1>
+{% endif %}
 
 <form action="" method="POST">
   {% csrf_token %}

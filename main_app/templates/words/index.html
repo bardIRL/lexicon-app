@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
-<h1>All Words</h1>
-<div class="container">
+
+<div class="index-container">
   {% for word in words %}
   <a href="{% url 'detail' word.id %}">
     <div class="card">
@@ -10,5 +10,4 @@
   </a>
   {% endfor %}
 </div>
-
 {% endblock %}

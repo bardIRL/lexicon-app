@@ -10,13 +10,21 @@ body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 
-.container {
-  width: 100vw;
+a {
+  text-decoration: none;
+  color: rgb(89, 70, 255);
+}
+
+.index-container {
   padding: 1em 3em;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 2em;
+}
+
+.index-container > a {
+  color: black;
 }
 
 .card {
@@ -35,9 +43,4 @@ body {
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.514);
   cursor: pointer;
-}
-
-a {
-  text-decoration: none;
-  color: black;
 }

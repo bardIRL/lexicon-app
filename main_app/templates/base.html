@@ -18,6 +18,9 @@
         <a href="{% url 'words_create' %}">Add a Word</a>
       </nav>
     </header>
+    {% if title %}
+    <h1>{{ title }}</h1>
+    {% endif %}
     <main>{% block content %} {% endblock %}</main>
     <footer></footer>
   </body>
