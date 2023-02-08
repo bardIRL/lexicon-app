@@ -8,4 +8,5 @@ urlpatterns = [
     path('words/<int:word_id>/', views.words_detail, name='detail'),
     path('words/create/', views.WordCreate.as_view(), name='words_create'),
     path('words/<int:pk>/update/', views.WordUpdate.as_view(), name='words_update'),
+    path('words/<int:pk>/delete/', views.WordDelete.as_view(), name='words_delete'),
 ]

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Word
 
@@ -37,4 +37,8 @@ class WordCreate(CreateView):
 class WordUpdate(UpdateView):
     model = Word
     fields = '__all__'
+    success_url = '/words'
+
+class WordDelete(DeleteView):
+    model = Word
     success_url = '/words'

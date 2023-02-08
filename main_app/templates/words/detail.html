@@ -4,5 +4,6 @@
 <p><b>Example:</b> <span>{{ word.sentence }}</span></p>
 
 <a href="{% url 'words_update' word.id %}">Edit</a>
+<a href="{% url 'words_delete' word.id %}">Delete</a>
 
 {% endblock %}
