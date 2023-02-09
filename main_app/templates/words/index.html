@@ -4,7 +4,10 @@
   {% for word in words %}
   <a href="{% url 'detail' word.id %}">
     <div class="card">
-      <h2>{{ word.word }}</h2>
+      <div class="card-header">
+        <h2>{{ word.word }}</h2>
+        <h4>{{ word.part_of_speech }}</h4>
+      </div>
       <p>{{ word.definition }}</p>
     </div>
   </a>

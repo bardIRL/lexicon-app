@@ -27,6 +27,22 @@ a {
   color: black;
 }
 
+.card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin: 0 0 auto;
+}
+
+h2 {
+  margin: 0;
+}
+
+h4 {
+  margin: 0;
+  font-weight: 500;
+}
+
 .card {
   width: 20em;
   height: 12em;
@@ -35,7 +51,7 @@ a {
   border-radius: 12px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.377);
   transition: 0.2s;
 }
