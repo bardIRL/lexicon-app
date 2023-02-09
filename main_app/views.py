@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from .models import Word
+from .forms import SynonymForm
 
 # Create your views here.
 
@@ -24,9 +25,11 @@ def words_index(request):
 
 def words_detail(request, word_id):
     word = Word.objects.get(id=word_id)
-    return render (request, 'words/detail.html', {
+    synonym_form = SynonymForm()
+    return render(request, 'words/detail.html', {
         'word': word,
-        'title': word.word
+        'title': word.word,
+        'synonym_form': synonym_form,
     })
 
 class WordCreate(CreateView):
@@ -42,3 +45,11 @@ class WordUpdate(UpdateView):
 class WordDelete(DeleteView):
     model = Word
     success_url = '/words'
+
+def add_synonym(request, word_id):
+  form = SynonymForm(request.POST)
+  if form.is_valid():
+    new_synonym = form.save(commit=False)
+    new_synonym.word_id = word_id
+    new_synonym.save()
+  return redirect('detail', word_id=word_id)

@@ -9,6 +9,10 @@
   <span>{{ synonym.synonym }}. </span>
   {% endfor %}
 </p>
+<form action="{% url 'add_synonym' word.id %}" method="POST">
+  {% csrf_token %} {{ synonym_form.as_p }}
+  <input type="submit" value="Add Synonym" />
+</form>
 
 <a href="{% url 'words_update' word.id %}">Edit</a>
 <a href="{% url 'words_delete' word.id %}">Delete</a>
