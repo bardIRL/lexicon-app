@@ -4,7 +4,8 @@
 <p><b>Definition. </b><span>{{ word.definition }}</span></p>
 <p><b>Example. </b><span>{{ word.sentence }}</span></p>
 <p><b>Connotation. </b>{{ word.get_connotation_display }}</p>
-{% comment %} <p>
+
+<p>
   <b>Synonyms. </b>
   <ul>
   {% for synonym in word.synonym_set.all %}
@@ -12,21 +13,24 @@
   {% endfor %}
   </ul>
 </p>
+
 <form action="{% url 'add_synonym' word.id %}" method="POST">
-  {% csrf_token %} {{ synonym_form.as_p }}
-  <input type="submit" value="Add Synonym" />
-</form> {% endcomment %}
+  {% csrf_token %} {{ synonym_form }}
+  <input type="submit" value="+" />
+</form>
+
 <p>
-  <b>Words Nearby {{word.word}}. </b>
+  <b>Words nearby "{{ word.word }}". </b>
   <ul>
-  {% for nearby_word in word.nearby_word_set.all %}
+  {% for nearby_word in word.nearbyword_set.all %}
     <li>{{ nearby_word.nearby_word }}</li>
   {% endfor %}
   </ul>
 </p>
+
 <form action="{% url 'add_nearby_word' word.id %}" method="POST">
-  {% csrf_token %} {{ nearby_word_form.as_p }}
-  <input type="submit" value="Add Nearby Word" />
+  {% csrf_token %} {{ nearby_word_form }}
+  <input type="submit" value="+" />
 </form>
 
 <a href="{% url 'words_update' word.id %}">Edit</a>

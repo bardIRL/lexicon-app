@@ -39,5 +39,14 @@ class NearbyWord(models.Model):
     def __str__(self):
         return self.nearby_word
 
+class Synonym(models.Model):
+    synonym = models.CharField(max_length=100)
+    word = models.ForeignKey(Word, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.synonym
+
+
+
     
     

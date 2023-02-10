@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 
-from .models import Word, NearbyWord
-from .forms import NearbyWordForm
+from .models import Word
+from .forms import NearbyWordForm, SynonymForm
 
 # Create your views here.
 
@@ -27,10 +27,12 @@ def words_index(request):
 def words_detail(request, word_id):
     word = Word.objects.get(id=word_id)
     nearby_word_form = NearbyWordForm()
+    synonym_form = SynonymForm()
     return render(request, 'words/detail.html', {
         'word': word,
         'title': word.word,
         'nearby_word_form': nearby_word_form,
+        'synonym_form': synonym_form,
     })
 
 class WordCreate(CreateView):
@@ -48,9 +50,17 @@ class WordDelete(DeleteView):
     success_url = '/words'
 
 def add_nearby_word(request, word_id):
-  form = NearbyWordForm(request.POST)
-  if form.is_valid():
-    new_nearby_word = form.save(commit=False)
-    new_nearby_word.word_id = word_id
-    new_nearby_word.save()
-  return redirect('detail', word_id=word_id)
+    form = NearbyWordForm(request.POST)
+    if form.is_valid():
+        new_nearby_word = form.save(commit=False)
+        new_nearby_word.word_id = word_id
+        new_nearby_word.save()
+    return redirect('detail', word_id=word_id)
+
+def add_synonym(request, word_id):
+    form = SynonymForm(request.POST)
+    if form.is_valid():
+        new_synonym = form.save(commit=False)
+        new_synonym.word_id = word_id
+        new_synonym.save()
+    return redirect('detail', word_id=word_id)
