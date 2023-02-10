@@ -8,6 +8,12 @@ PARTS_OF_SPEECH = (
     ('adverb','adverb'),
 )
 
+CONNOTATIONS = (
+    ('positive', 'positive'),
+    ('negative', 'negative'),
+    ('neutral', 'neutral')
+)
+
 # Create your models here.
 class Word(models.Model):
     word = models.CharField(max_length=100)
@@ -17,17 +23,21 @@ class Word(models.Model):
     )
     definition = models.CharField(max_length=250)
     etymology = models.CharField(max_length=250)
+    connotation = models.CharField(
+        max_length=100,
+        choices=CONNOTATIONS,
+        )
     sentence = models.TextField(max_length=250)
 
     def __str__(self):
-        return f'{self.word} ({self.id})'
+        return self.word
 
-class Synonym(models.Model):
-    synonym = models.CharField(max_length=100)
+class NearbyWord(models.Model):
+    nearby_word = models.CharField(max_length=100)
     word = models.ForeignKey(Word, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.synonym} ({self.id})'
+        return self.nearby_word
 
     
     

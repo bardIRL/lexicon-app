@@ -1,8 +1,8 @@
 from django.forms import ModelForm
-from .models import Synonym
+from .models import NearbyWord
 
-class SynonymForm(ModelForm):
+class NearbyWordForm(ModelForm):
   class Meta:
-    model = Synonym
-    fields = ['synonym']
+    model = NearbyWord
+    fields = ['nearby_word']
 
