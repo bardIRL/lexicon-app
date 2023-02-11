@@ -1,0 +1,6 @@
+{% extends 'base.html' %} {% block content %} {% for label in label_list %}
+
+<b>{{ label.name }}</b>
+<p>{{ label.memo }}</p>
+
+{% endfor %} {% endblock %}

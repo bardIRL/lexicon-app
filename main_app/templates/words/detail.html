@@ -4,35 +4,62 @@
 <p><b>Definition. </b><span>{{ word.definition }}</span></p>
 <p><b>Example. </b><span>{{ word.sentence }}</span></p>
 <p><b>Connotation. </b>{{ word.get_connotation_display }}</p>
-
-<p>
+<div>
   <b>Synonyms. </b>
   <ul>
-  {% for synonym in word.synonym_set.all %}
+    {% for synonym in word.synonym_set.all %}
     <li>{{ synonym.synonym }}</li>
-  {% endfor %}
+    {% endfor %}
   </ul>
-</p>
-
-<form action="{% url 'add_synonym' word.id %}" method="POST">
-  {% csrf_token %} {{ synonym_form }}
-  <input type="submit" value="+" />
-</form>
-
-<p>
+  <form action="{% url 'add_synonym' word.id %}" method="POST">
+    {% csrf_token %} {{ synonym_form }}
+    <input type="submit" value="+" />
+  </form>
+</div>
+<div>
   <b>Words nearby "{{ word.word }}". </b>
   <ul>
-  {% for nearby_word in word.nearbyword_set.all %}
+    {% for nearby_word in word.nearbyword_set.all %}
     <li>{{ nearby_word.nearby_word }}</li>
-  {% endfor %}
+    {% endfor %}
   </ul>
-</p>
+  <form action="{% url 'add_nearby_word' word.id %}" method="POST">
+    {% csrf_token %} {{ nearby_word_form }}
+    <input type="submit" value="+" />
+  </form>
+</div>
+<div>
+  <b>Your Labels</b>
+  {% if word.labels.count %}
+    {% for label in word.labels.all %}
+    <p style="color: {{ label.color }}">{{ label.name }} {{ label.memo }}</span>
+    <form action="{% url 'unassoc_label' word.id label.id %}" method="POST">
+      {% csrf_token %}
+      <button type="submit">Remove</button>
+    </form> 
+    {% endfor %}
+  {% else %}
+  <p>TEST</p>
+  {% endif %}
+</div>
+<div>
+  <b>Available Labels</b>
+  {% if labels.count %}
+    {% for label in labels.all %}
+    <li>
+      {{ label.name }}<span>{{ label.memo }}</span>
+      <form action="{% url 'assoc_label' word.id label.id %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">Add</button>
+      </form> 
+    </li>
+    {% endfor %}
+  {% else %}
+    <p>TEST</p>
+  {% endif %}
+</div>
 
-<form action="{% url 'add_nearby_word' word.id %}" method="POST">
-  {% csrf_token %} {{ nearby_word_form }}
-  <input type="submit" value="+" />
-</form>
-
+ 
 <a href="{% url 'words_update' word.id %}">Edit</a>
 <a href="{% url 'words_delete' word.id %}">Delete</a>
 

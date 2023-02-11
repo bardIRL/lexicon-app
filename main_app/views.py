@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.views.generic import ListView, DetailView
 
-from .models import Word
+from .models import Word, Label
 from .forms import NearbyWordForm, SynonymForm
 
 # Create your views here.
@@ -26,18 +26,22 @@ def words_index(request):
 
 def words_detail(request, word_id):
     word = Word.objects.get(id=word_id)
+    id_list = word.labels.all().values_list('id')
+    unassociated_labels = Label.objects.exclude(id__in=id_list)
     nearby_word_form = NearbyWordForm()
     synonym_form = SynonymForm()
+    print(unassociated_labels)
     return render(request, 'words/detail.html', {
         'word': word,
         'title': word.word,
         'nearby_word_form': nearby_word_form,
         'synonym_form': synonym_form,
+        'labels': unassociated_labels
     })
 
 class WordCreate(CreateView):
     model = Word
-    fields = '__all__'
+    fields = ['part_of_speech','definition','word','etymology','connotation','sentence']
     success_url = '/words'
 
 class WordUpdate(UpdateView):
@@ -63,4 +67,22 @@ def add_synonym(request, word_id):
         new_synonym = form.save(commit=False)
         new_synonym.word_id = word_id
         new_synonym.save()
+    return redirect('detail', word_id=word_id)
+
+class LabelList(ListView):
+    model = Label
+
+class LabelDetail(DetailView):
+    model = Label
+    
+class LabelCreate(CreateView):
+    model = Label
+    fields = '__all__'
+
+def assoc_label(request, word_id, label_id):
+    Word.objects.get(id=word_id).labels.add(label_id)
+    return redirect('detail', word_id=word_id)
+
+def unassoc_label(request, word_id, label_id):
+    Word.objects.get(id=word_id).labels.remove(label_id)
     return redirect('detail', word_id=word_id)
